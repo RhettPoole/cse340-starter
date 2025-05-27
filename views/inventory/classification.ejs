@@ -1,0 +1,10 @@
+<%# In the inventory controller, when the route that requests to see all the vehicles in inventory by a particular classification is processed, the data is sent to a view to be displayed. %>
+<% if (title) { %>
+<h1><%= title %></h1>
+<% } else {
+  res.redirect('/')
+} %>
+
+<%# messages() %>
+
+<%- grid %>
