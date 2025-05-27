@@ -1,0 +1,234 @@
+/******* Change Box Model ***************/
+*,
+*:before,
+*:after {
+  box-sizing: border-box;
+}
+
+/* Base styles (mobile-first) */
+/* Global Styles */
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  margin: 0;
+  background: #fff;
+  color: #222;
+}
+
+body::before, body::after {
+  content: "";
+  display: block;
+  height: 20px;
+}
+
+#wrapper {
+  max-width: 960px;
+  margin: auto;
+  background: #fff;
+}
+
+/* Header + Nav */
+header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 1.5rem;
+}
+
+header h1 {
+  font-size: 1.6rem;
+  margin: 0;
+  color: #1a1a2e;
+}
+
+header a {
+  text-decoration: none;
+  color: #222;
+  font-weight: bold;
+  font-size: 0.95rem;
+  background-color: transparent;
+}
+
+header a:hover {
+  text-decoration: underline;
+  background-color: transparent;
+}
+
+nav {
+  background-color: #222;
+  color: #fff;
+  padding: 0.5rem;
+  margin-left: 1rem;
+  margin-right: 1rem;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  justify-content: space-around;
+  padding: 0;
+  margin: 0;
+}
+
+nav li {
+  color: #fff;
+  background-color: #222;
+  text-decoration: none;
+  font-weight: bold;
+  padding: 0.5rem 1rem;
+}
+
+nav li a:hover {
+  background: #16213e;
+  color: #fff;
+  border-radius: 5px;
+}
+
+/* Page Title */
+.page-title {
+  font-size: 2rem;
+  text-align: left;
+  margin-left: 1.5rem;
+  color: #222;
+  background-color: transparent;
+}
+
+/* Hero Section with Overlay */
+.hero {
+  position: relative;
+  background: url('/images/vehicles/delorean.jpg') no-repeat center center;
+  background-size: cover;
+  color: #fff;
+  text-shadow: 1px 1px 2px #000;
+  padding: 2rem;
+  min-height: 300px;
+  display: flex;
+  align-items: center;
+}
+
+.hero-text {
+  background: rgba(0, 0, 0, 0.6);
+  padding: 1rem;
+  border-radius: 10px;
+  max-width: 50%;
+}
+
+.hero-text h1 {
+  font-size: 1.8rem;
+  margin-bottom: 0.5rem;
+}
+
+.hero-text h2 {
+  font-size: 1.4rem;
+  color: #4dd0e1;
+}
+
+.hero-text ul {
+  margin: 0.5rem 0;
+  padding-left: 1.25rem;
+}
+
+.button {
+  display: inline-block;
+  background: #00b4d8;
+  color: #fff;
+  padding: 0.5rem 1rem;
+  border-radius: 5px;
+  text-decoration: none;
+  font-weight: bold;
+  margin-top: 1rem;
+}
+
+/* Section Layout */
+.reviews-upgrades {
+  display: flex;
+  gap: 2rem;
+  padding: 2rem 1rem;
+}
+
+.upgrades, .reviews {
+  flex: 1;
+}
+
+.upgrade-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+  gap: 1rem;
+}
+
+.upgrade {
+  background: #004080;
+  padding: 0.5rem;
+  text-align: center;
+  color: #fff;
+  border-radius: 5px;
+}
+
+.upgrade img {
+  max-width: 100%;
+  height: auto;
+  border-radius: 4px;
+}
+
+.upgrade a {
+  display: block;
+  margin-top: 0.3rem;
+  color: #fff;
+  text-decoration: underline;
+}
+
+/* Footer */
+footer {
+  color: #222;
+  background-color: transparent;
+  text-align: left;
+  padding: 1rem;
+  font-size: 0.9rem;
+}
+
+/* Desktop Layout */
+@media screen and (min-width: 768px) {
+   .reviews-upgrades {
+    flex-direction: row;
+  } 
+
+  /* Flip order: Upgrades left, Reviews right */
+  .upgrades {
+    order: 1;
+  }
+
+  .reviews {
+    order: 2;
+  }
+
+  /* Checkerboard background for large screens only */
+  body {
+    background: url('/images/site/checkerboard.jpg') repeat-y left top,
+      url('/images/site/checkerboard.jpg') repeat-y right top;
+    background-color: #fff;
+    background-size: 50% 50%;
+    background-attachment: fixed;
+  }
+
+  #wrapper {
+    box-shadow: 0 0 0 5px #00b4d8;
+    border-radius: 3.0%;
+  }
+}
+
+/* Remove checkerboard background and wrapper styles for small screens */
+@media screen and (max-width: 767px) {
+  .reviews-upgrades {
+    flex-direction: column; /* Stack reviews and upgrades vertically */
+  }
+
+  body {
+    background: none !important; /* Ensure no background is applied */
+    background-color: #fff !important; /* Set a plain white background */
+  }
+
+  #wrapper {
+    box-shadow: none !important; /* Remove shadow */
+    border-radius: 0 !important; /* Reset border radius */
+    background: none !important; /* Remove background */
+  }
+}
