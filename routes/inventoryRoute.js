@@ -7,10 +7,13 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 
 // Route to build inventory by classification view
-// 'get' indeicates that it's listening for get method call in the webpage.
+// 'get' indicates that it's listening for get method call in the webpage.
 // /type/:classificationId is the route be watched for.
 // invController.buildByClassification indicates the buildByClassification function within the invController is being used to fulfill the request sent by the route.
 router.get("/type/:classificationId", invController.buildByClassificationId);
+
+// Route to build by vehicle by ID.
+router.get('detail/:inv_id', invController.buildByInventoryId);
 
 // Exports the router so we can use it elsewhere.
 module.exports = router;

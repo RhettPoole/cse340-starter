@@ -72,4 +72,43 @@ Util.buildClassificationGrid = async function(data) {
   return grid
 }
 
+/* **************************************
+* Build the inventoryID view HTML
+* ************************************ */
+Util.buildDetailView = async function(vehicle) {
+  if (!vehicle) {
+    return "<p>Vehicle not found.</p>";
+  }
+
+  // Format price and miles with commas and currency
+  const price = Number(vehicle.inv_price).toLocaleString("en-US", {style: "currency", currency: "USD"});
+  const miles = Number(vehicle.inv_price).toLocaleString("en-US");
+
+  return `
+  <div class="vehicle-detail">
+      <div class="vehicle-detail-image">
+        <img src="${vehicle.inv_image}" alt="Image of ${vehicle.inv_make} ${vehicle.inv_model}">
+      </div>
+      <div class="vehicle-detail-info">
+        <h2>${vehicle.inv_year} ${vehicle.inv_make} ${vehicle.inv_model}</h2>
+        <p><strong>Price:</strong> ${price}</p>
+        <p><strong>Mileage:</strong> ${miles} miles</p>
+        <p><strong>Description:</strong> ${vehicle.inv_description}</p>
+        <p><strong>Color:</strong> ${vehicle.inv_color}</p>
+      </div>
+    </div>
+  `;
+}
+
+/* ****************************************
+ * Middleware For Handling Errors
+ * Wrap other function in this for 
+ * General Error Handling
+ **************************************** */
+// Util.handleErros = - Declares the property which is appended to the "Util" object
+// fn - accepts req, res, and next as parameters through the arrow function.
+// Promis.resolve(fn(req, res, next)) a "wrapper" that accepts a function as a parameter of the "Promise.resolve" function. In other words, the wrapped function is called and attampts to fulfill its normal process, but now does so within a JavaScript promis. If it succeeds, then the promise is resolved and everything continues normally.
+// If there is an error, then the Promse "fails", the error that caused the failure is "caught" and forwarded to the next process in application chain.
+Util.handleErrors = fn => (req, res, next) => Promise.resolve(fn(req, res, next)).catch(next)
+
 module.exports = Util

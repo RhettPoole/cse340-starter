@@ -3,7 +3,7 @@ const invModel = require("../models/inventory-model")
 // Brings the utilities/index.js file into scope and stores it into an utilities variable
 const utilities = require("../utilities")
 
-// Creates an empty object in the invCont variable for us to use.
+// Creates an empty object in the invCont variable for us to use. This holds all of the controller functions in this file.
 const invCont = {}
 
 /* *************
@@ -31,6 +31,29 @@ invCont.buildByClassificationId = async function (req, res, next) {
         // Contains the grid variable to display the inventory items.
         grid,
     })
+}
+
+invCont.buildByInventoryId = async function (req, res, next) {
+    try {
+        // Create constant
+        const inv_id = req.params.inv_id
+        // Get the vehicle data from the model
+        const data = await invModel.getInventoryById(inv_id)
+        // Build the nav
+        const nav = await utilities.getNav()
+        // Build the detail HTML using a utility function
+        const detail = await utilities.buildDetailView(data)
+        // Set the title using make and model
+        const title = `${data.inv_make} ${data.inv_model} Details`
+        // Render the detail view
+        res.render("inventory/detail", {
+            title,
+            nav,
+            detail
+        })
+    } catch (error) {
+        next(error)
+    }
 }
 
 // Exports our invCont object to be used elsewhere.
