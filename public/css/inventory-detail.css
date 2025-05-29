@@ -29,6 +29,15 @@
   font-size: 2rem;
 }
 
+.namePrice h2 a {
+  color: black;
+}
+
+.namePrice h2 a:hover {
+  background-color: black;
+  color: white;
+}
+
 .vehicle-detail-info p {
   font-size: 1.1rem;
   margin: 0.5em 0;

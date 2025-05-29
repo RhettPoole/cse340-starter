@@ -76,10 +76,13 @@ nav li {
   font-weight: bold;
   padding: 0.5rem 1rem;
 }
+nav li a {
+  color: white;
+}
 
 nav li a:hover {
-  background: #16213e;
-  color: #fff;
+  background: white;
+  color: black;
   border-radius: 5px;
 }
 
@@ -136,6 +139,10 @@ nav li a:hover {
   text-decoration: none;
   font-weight: bold;
   margin-top: 1rem;
+}
+
+.button:hover {
+  background: #004080;
 }
 
 /* Section Layout */
