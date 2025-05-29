@@ -82,7 +82,7 @@ Util.buildDetailView = async function(vehicle) {
 
   // Format price and miles with commas and currency
   const price = Number(vehicle.inv_price).toLocaleString("en-US", {style: "currency", currency: "USD"});
-  const miles = Number(vehicle.inv_price).toLocaleString("en-US");
+  const miles = Number(vehicle.inv_miles).toLocaleString("en-US");
 
   return `
   <div class="vehicle-detail">

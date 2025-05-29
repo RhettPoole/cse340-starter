@@ -36,7 +36,7 @@ invCont.buildByClassificationId = async function (req, res, next) {
 invCont.buildByInventoryId = async function (req, res, next) {
     try {
         // Create constant
-        const inv_id = req.params.inv_id
+        const inv_id = req.params.inv_id;
         // Get the vehicle data from the model
         const data = await invModel.getInventoryById(inv_id)
         // Build the nav
