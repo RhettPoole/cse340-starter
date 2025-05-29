@@ -105,7 +105,7 @@ Util.buildDetailView = async function(vehicle) {
  * Wrap other function in this for 
  * General Error Handling
  **************************************** */
-// Util.handleErros = - Declares the property which is appended to the "Util" object
+// Util.handleErrors = - Declares the property which is appended to the "Util" object
 // fn - accepts req, res, and next as parameters through the arrow function.
 // Promis.resolve(fn(req, res, next)) a "wrapper" that accepts a function as a parameter of the "Promise.resolve" function. In other words, the wrapped function is called and attampts to fulfill its normal process, but now does so within a JavaScript promis. If it succeeds, then the promise is resolved and everything continues normally.
 // If there is an error, then the Promse "fails", the error that caused the failure is "caught" and forwarded to the next process in application chain.

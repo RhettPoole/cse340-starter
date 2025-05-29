@@ -56,5 +56,13 @@ invCont.buildByInventoryId = async function (req, res, next) {
     }
 }
 
+// Intentional error controller
+invCont.causeError = async function (req, res, next) {
+    // Throw an error to simulate a server crash
+    const err = new Error("Intentional server error");
+    err.status = 500;
+    throw err;
+}
+
 // Exports our invCont object to be used elsewhere.
 module.exports = invCont
