@@ -17,7 +17,7 @@ router.get("/type/:classificationId", utilities.handleErrors(invController.build
 // Route to build by vehicle by ID.
 router.get('/detail/:inv_id', utilities.handleErrors(invController.buildByInventoryId));
 
-// Inentional 500 Error Route
+// Intentional 500 Error Route
 router.get("/cause-error", utilities.handleErrors(invController.causeError));
 
 // Exports the router so we can use it elsewhere.

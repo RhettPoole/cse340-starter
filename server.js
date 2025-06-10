@@ -13,6 +13,38 @@ const app = express()
 const static = require("./routes/static")
 const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
+const session = require("express-session")
+const pool = require('./database/')
+
+/* ***********************
+ * Middleware
+ *************************/
+// Invoces app.use() function and indicates the session is to be applied.
+app.use(session({
+  // Refers to where the session data will be stored, this will make a new table in our database.
+  store: new (require('connect-pg-simple')(session))({
+    // Creates a table if it's missing.
+    createTableIfMissing: true,
+    // Uses the database pool to interact with the database server.
+    pool,
+  }),
+  // Indicates "secret" name-value pair that will be used to protect the session, there's a value of the secret in the .env file.
+  secret: process.env.SESSION_SECRET,
+  // Allows Flash messages to save the session table after each message.
+  resave: true,
+  saveUninitialized: true,
+  // Name we are assigning to the unique "id" that will be created for each session.
+  name: 'sessionId',
+}))
+
+// Express Messages Middleware
+app.use(require('connect-flash')())
+app.use(function(req,res,next){
+  // The express-messages package is required as a function. The function accepts the request and response objects as parameters. The functionality of the this function is assigned to the response object, using the "locals" option and a name of "messages". This allows any message to be stored into the response, making it available in a view.
+  res.locals.messages = require('express-messages')(req, res)
+  next()
+})
+
 /* ***********************
  * View Engine and Templates
  *************************/
