@@ -1,0 +1,35 @@
+#login-form, #register-form {
+    background-color: rgb(21, 60, 105);
+    color: white;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+    margin: 1rem;
+}
+
+input {
+    border-radius: 0.8%;
+    margin-bottom: 1rem;
+}
+
+#sign_up {
+    color: white;
+}
+
+#sign_up:hover {
+    background-color: rgb(119, 119, 119);
+}
+
+button {
+    align-content: center;
+    background-color: rgb(119, 119, 119);
+    border-radius: 10.0%;
+}
+
+button:hover {
+    border-color: white;
+}
+
+h1 {
+    margin-left: 1rem;
+}
