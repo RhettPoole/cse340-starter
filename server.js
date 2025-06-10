@@ -15,6 +15,7 @@ const inventoryRoute = require("./routes/inventoryRoute")
 const utilities = require("./utilities/")
 const session = require("express-session")
 const pool = require('./database/')
+const accountRoute = require('./routes/accountRoute')
 
 /* ***********************
  * Middleware
@@ -65,6 +66,9 @@ app.get("/", utilities.handleErrors(baseController.buildHome)) // the middleware
 // /inv - keyword indicating that a route that contains this word will use thie route file to work with inventory-related processes; "inv" is simply a shorter version of "inventory".
 // inventoryRoute - our variable representing the inventoryRoute.js file which was required (brough into the scope of the server.js file).
 app.use("/inv", inventoryRoute)
+
+// Set the route for the account page
+app.use("/account", accountRoute)
 
 // File Not Found Route - must be last route in the list
 app.use(async (req, res, next) => {

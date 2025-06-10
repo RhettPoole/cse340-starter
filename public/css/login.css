@@ -1,0 +1,23 @@
+#login-form {
+    background-color: rgb(21, 60, 105);
+    color: white;
+    padding-left: 1rem;
+    padding-top: 1rem;
+    padding-bottom: 1rem;
+}
+
+#account_email {
+    margin-bottom: 0.5rem;
+}
+
+input {
+    border-radius: 0.8%;
+}
+
+#sign_up {
+    color: white;
+}
+
+button {
+    align-content: center;
+}
