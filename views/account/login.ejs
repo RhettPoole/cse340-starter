@@ -1,13 +1,19 @@
 <main>
-  <% if (title) { %>
+  <% if (typeof errorMessages !== "undefined" && errorMessages.length > 0) { %>
+  <div class="flash flash-error"><%= errorMessages[0] %></div>
+  <% } %> <% if (title) { %>
   <h1><%= title %></h1>
   <% } %>
   <div id="login-form">
     <form>
-      <label for="account_email">Email:</label><br>
-      <input type="text" id="account_email" name="account_email" /><br>
+      <label for="account_email">Email:</label><br />
+      <input type="text" id="account_email" name="account_email" /><br />
       <label for="account_password">Password:</label><br />
-      <input type="password" id="account_password" name="account_password" /><br>
+      <input
+        type="password"
+        id="account_password"
+        name="account_password"
+      /><br />
       <button id="login_button">Login</button><br />
       <p>No Account? <a href="./register" id="sign_up">Sign-up</a></p>
     </form>

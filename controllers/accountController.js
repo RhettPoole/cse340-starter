@@ -5,9 +5,11 @@ const utilities = require("../utilities")
 * *************************************** */
 async function buildLogin(req, res, next) {
     let nav = await utilities.getNav()
+    let errorMessages = req.flash("error")
     res.render("account/login", {
         title: "Login",
         nav,
+        errorMessages
     })
 }
 
@@ -16,10 +18,11 @@ async function buildLogin(req, res, next) {
 * *************************************** */
 async function buildRegister(req, res, next) {
     let nav = await utilities.getNav()
+    let errorMessages = req.flash("error")
     res.render("account/register", {
         title: "Register",
         nav,
-        errors: null
+        errorMessages
     })
 }
 
