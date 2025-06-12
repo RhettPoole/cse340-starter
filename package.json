@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "body-parser": "^2.2.0",
     "connect-flash": "^0.1.1",
     "connect-pg-simple": "^10.0.0",
     "dotenv": "^16.0.3",
@@ -22,5 +23,6 @@
   },
   "devDependencies": {
     "nodemon": "^3.1.0"
-  }
+  },
+  "packageManager": "pnpm@10.12.1+sha256.889bac470ec93ccc3764488a19d6ba8f9c648ad5e50a9a6e4be3768a5de387a3"
 }

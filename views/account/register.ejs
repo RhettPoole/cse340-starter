@@ -1,11 +1,12 @@
 <main>
-  <% if (typeof errorMessages !== "undefined" && errorMessages.length > 0) { %>
-  <div class="flash flash-error"><%= errorMessages[0] %></div>
-  <% } %> <% if (title) { %>
+  <% if (typeof noticeMessages !== "undefined" && noticeMessages.length > 0) { %>
+  <div class="flash flash-notice"><%= noticeMessages[0] %></div>
+  <% } %>
+  <% if (title) { %>
   <h1><%= title %></h1>
   <% } %>
   <div id="register-form">
-    <form>
+    <form action="/account/register" method="post">
       <label for="account_firstname">First Name:</label><br />
       <input
         type="text"
@@ -14,7 +15,7 @@
       /><br />
 
       <label for="account_lastname">Last Name:</label><br />
-      <input type="text" id="account_lastname" name="account_firstname" /><br />
+      <input type="text" id="account_lastname" name="account_lastname" /><br />
 
       <label for="account_email">Email:</label><br />
       <input type="text" id="account_email" name="account_email" /><br />
