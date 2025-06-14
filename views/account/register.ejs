@@ -18,8 +18,7 @@
         type="text"
         id="account_firstname"
         name="account_firstname"
-        required
-        placeholder="John"
+        required value = "<%= locals.account_firstname %>" // Locals is short for res.locals and allows us to make these lines "sticky" when an error occurs on form submission.
       /><br />
 
       <label for="account_lastname">Last Name:</label><br />
@@ -27,8 +26,7 @@
         type="text"
         id="account_lastname"
         name="account_lastname"
-        required
-        placeholder="Doe"
+        required value = "<%= locals.account_lastname %>"
       /><br />
 
       <label for="account_email">Email:</label><br />
@@ -36,8 +34,7 @@
         type="email"
         id="account_email"
         name="account_email"
-        required
-        placeholder="example@email.com"
+        required value = "<%= locals.account_email %>"
       /><br />
 
       <label for="account_password">Password:</label><br />

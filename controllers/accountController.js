@@ -6,11 +6,10 @@ const accountModel = require("../models/account-model");
  * *************************************** */
 async function buildLogin(req, res, next) {
   let nav = await utilities.getNav();
-  let errorMessages = req.flash("error");
   res.render("account/login", {
     title: "Login",
     nav,
-    errorMessages,
+    erros: null,
   });
 }
 
