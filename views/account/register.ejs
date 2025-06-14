@@ -1,9 +1,15 @@
 <main>
-  <% if (typeof noticeMessages !== "undefined" && noticeMessages.length > 0) { %>
+  <% if (typeof noticeMessages !== "undefined" && noticeMessages.length > 0) {
+  %>
   <div class="flash flash-notice"><%= noticeMessages[0] %></div>
-  <% } %>
-  <% if (title) { %>
+  <% } %> <% if (title) { %>
   <h1><%= title %></h1>
+  <% } %> <% if (errors) { %>
+  <ul class="notice">
+    <% errors.array().forEach(error => { %>
+    <li><%= error.msg %></li>
+    <% }) %>
+  </ul>
   <% } %>
   <div id="register-form">
     <form action="/account/register" method="post">
@@ -12,22 +18,37 @@
         type="text"
         id="account_firstname"
         name="account_firstname"
-        required placeholder="John"
+        required
+        placeholder="John"
       /><br />
 
       <label for="account_lastname">Last Name:</label><br />
-      <input type="text" id="account_lastname" name="account_lastname" required placeholder="Doe"/><br />
+      <input
+        type="text"
+        id="account_lastname"
+        name="account_lastname"
+        required
+        placeholder="Doe"
+      /><br />
 
       <label for="account_email">Email:</label><br />
-      <input type="email" id="account_email" name="account_email" required placeholder="example@email.com"/><br />
+      <input
+        type="email"
+        id="account_email"
+        name="account_email"
+        required
+        placeholder="example@email.com"
+      /><br />
 
       <label for="account_password">Password:</label><br />
       <input
         type="password"
         id="account_password"
         name="account_password"
-        required placeholder="Yourpassword"
-        required pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+        required
+        placeholder="Yourpassword"
+        required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
       /><br />
       <i>
         <p>* All fields are required!</p>

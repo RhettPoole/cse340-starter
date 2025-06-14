@@ -1,5 +1,7 @@
 // Bring express to the scope of the file.
 const express = require("express")
+// Calls our validator utility into scope.
+const regValidate = require('../utilities/account-validation')
 
 // Creates a new router object for this router file.
 const router = new express.Router()
@@ -12,6 +14,9 @@ router.get("/login", utilities.handleErrors(accountController.buildLogin))
 
 // Registration Routes
 router.get("/register", utilities.handleErrors(accountController.buildRegister))
-router.post('/register', utilities.handleErrors(accountController.registerAccount))
+router.post('/register', 
+    regValidate.registrationRules(),
+    regValidate.checkRegData,
+    utilities.handleErrors(accountController.registerAccount))
 
 module.exports = router;
