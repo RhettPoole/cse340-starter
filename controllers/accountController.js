@@ -14,6 +14,18 @@ async function buildLogin(req, res, next) {
 }
 
 /* ****************************************
+ *  Process Login - Started this preemptively on 6.14, doesn't need started yet and hasn't been taught.
+ * *************************************** 
+async function loginAccount(req, res) {
+  let nav = await utilities.getNav();
+  const {
+    account_email,
+    account_password,
+  } = req.body;
+  const 
+} */
+
+/* ****************************************
  *  Deliver registration view
  * *************************************** */
 async function buildRegister(req, res, next) {
