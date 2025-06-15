@@ -1,5 +1,6 @@
-const utilities = require(".");
+const utilities = require("../utilities");
 const { body, validationResult } = require("express-validator"); // the body tool allows the validator to access the body object, which contants all of the data, via the HTTPRequest. validationResult is an object that contains all errors detected by the validation process.
+const accountModel = require("../models/account-model")
 const validate = {};
 
 /*  **********************************
@@ -16,7 +17,7 @@ validate.registrationRules = () => {
       .withMessage("Please provide a first name. "), // On error, this message is sent
 
     // lastname is required and must be a string
-    body("account_last_name")
+    body("account_lastname")
       .trim()
       .escape()
       .notEmpty()
