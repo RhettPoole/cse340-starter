@@ -20,5 +20,14 @@ router.get('/detail/:inv_id', utilities.handleErrors(invController.buildByInvent
 // Intentional 500 Error Route
 router.get("/cause-error", utilities.handleErrors(invController.causeError));
 
+// Route to build inventory management view
+router.get("/", utilities.handleErrors(invController.buildManagement));
+
+// Route for management add-classification view
+router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
+
+// Route for management add-inventory view
+router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+
 // Exports the router so we can use it elsewhere.
 module.exports = router;
