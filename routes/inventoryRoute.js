@@ -35,11 +35,7 @@ router.get("/add-inventory", utilities.handleErrors(invController.buildAddInvent
 router.post("/add-classification", invValidate.classificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification));
 
 // Post route for adding to inventory
-router.post(
-    "/add-inventory",
-    invValidate.inventoryRules(),
-    invValidate.checkInventoryData,
-    utilities.handleErrors(invController.addInventory)
+router.post("/add-inventory", invValidate.inventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory)
 );
 
 // Exports the router so we can use it elsewhere.

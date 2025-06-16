@@ -1,4 +1,5 @@
 const { body, validationResult } = require("express-validator");
+const utilities = require("../utilities");
 
 const classificationRules = () => [
   body("classification_name")
@@ -39,11 +40,13 @@ const inventoryRules = () => [
 
 const checkInventoryData = async (req, res, next) => {
   const errors = validationResult(req);
-  let nav = await require("../utilities").getNav();
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList(req.body.classification_id);
   if (!errors.isEmpty()) {
     return res.render("inventory/add-inventory", {
       title: "Add Inventory",
       nav,
+      classificationList,
       flashMessage: null,
       errors: errors.array(),
       ...req.body
