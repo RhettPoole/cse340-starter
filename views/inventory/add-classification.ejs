@@ -47,5 +47,19 @@
           input.focus();
         }
       });
+    const classificationInput = document.getElementById("classification_name");
+    classificationInput.addEventListener("input", function () {
+      const pattern = /^[A-Za-z0-9]+$/;
+      if (
+        classificationInput.value.trim() &&
+        pattern.test(classificationInput.value)
+      ) {
+        classificationInput.classList.remove("input-error");
+        classificationInput.classList.add("input-success");
+      } else {
+        classificationInput.classList.remove("input-success");
+        classificationInput.classList.add("input-error");
+      }
+    });
   </script>
 </main>
