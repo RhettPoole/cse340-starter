@@ -7,6 +7,8 @@ const router = new express.Router()
 const invController = require("../controllers/invController")
 // Brings utilities w/ error handling into the router's scope.
 const utilities = require("../utilities")
+// Brings the inventory validation rules into the router's scope.
+const invValidate = require("../utilities/inventory-validation");
 
 // Route to build inventory by classification view
 // 'get' indicates that it's listening for get method call in the webpage.
@@ -28,6 +30,17 @@ router.get("/add-classification", utilities.handleErrors(invController.buildAddC
 
 // Route for management add-inventory view
 router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+
+// Post route for adding classification
+router.post("/add-classification", invValidate.classificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification));
+
+// Post route for adding to inventory
+router.post(
+    "/add-inventory",
+    invValidate.inventoryRules(),
+    invValidate.checkInventoryData,
+    utilities.handleErrors(invController.addInventory)
+);
 
 // Exports the router so we can use it elsewhere.
 module.exports = router;

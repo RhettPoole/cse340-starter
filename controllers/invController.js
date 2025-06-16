@@ -81,18 +81,94 @@ invCont.buildAddClassification = async function (req, res, next) {
 };
 
 invCont.buildAddInventory = async function (req, res, next) {
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList();
+  let flashMessage = req.flash("notice");
+  res.render("inventory/add-inventory", {
+    title: "Add Inventory",
+    nav,
+    classificationList,
+    flashMessage: flashMessage.length ? flashMessage[0] : null,
+    errors: [],
+    // Stick Values here
+  });
+};
+
+// Add classification controller function
+invCont.addClassification = async function (req, res) {
+  const { classification_name } = req.body;
+  const result = await invModel.addClassification(classification_name);
+  if (result) {
+    req.flash("notice", "Classification added successfully!");
     let nav = await utilities.getNav();
-    let classificationList = await utilities.buildClassificationList();
-    let flashMessage = req.flash("notice");
-    res.render("inventory/add-inventory", {
-        title: "Add Inventory",
-        nav,
-        classificationList,
-        flashMessage: flashMessage.length ? flashMessage[0]: null,
-        errors: [],
-        // Stick Values here
+    res.render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      flashMessage: req.flash("notice")[0],
     });
-}
+  } else {
+    res.render("inventory/add-classification", {
+      title: "Add Classification",
+      flashMessage: "Failed to add classification.",
+      errors: [],
+      classfication_name,
+    });
+  }
+};
+
+// Controller function for adding to addInventory
+invCont.addInventory = async function (req, res) {
+  const {
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  } = req.body;
+  const result = await invModel.addInventory({
+    inv_make,
+    inv_model,
+    inv_year,
+    inv_description,
+    inv_image,
+    inv_thumbnail,
+    inv_price,
+    inv_miles,
+    inv_color,
+    classification_id,
+  });
+  let nav = await utilities.getNav();
+  if (result) {
+    req.flash("notice", "Inventory item added successfully!");
+    res.render("inventory/management", {
+      title: "Inventory Management",
+      nav,
+      flashMessage: req.flash("notice")[0],
+    });
+  } else {
+    res.render("inventory/add-inventory", {
+      title: "Add Inventory",
+      nav,
+      flashMessage: "Failed to add inventory item.",
+      errors: [],
+      inv_make,
+      inv_model,
+      inv_year,
+      inv_description,
+      inv_image,
+      inv_thumbnail,
+      inv_price,
+      inv_miles,
+      inv_color,
+      classification_id,
+    });
+  }
+};
 
 // Intentional error controller
 invCont.causeError = async function (req, res, next) {

@@ -18,7 +18,7 @@ async function getClassifications() {
  * ************************** */
 // declares an async function by name and passes a variable, which should contain the classification_id value, as a parameter.
 async function getInventoryByClassificationId(classification_id) {
-    // Open a try - catch block
+  // Open a try - catch block
   try {
     /* Creates an SQL query, to read the inventory and classification information from their respective tables using an INNER JOIN. The query is written using a parameterized statement. The $1 is a placeholder, which will be replaced by the value shown in the brackets [], when the SQL statement is run. The SQL is queried against the databse via the database pool. Note the await keyword, which means the query will wait for the information to be returned, where it will be stored in the data variable. */
     const data = await pool.query(
@@ -39,13 +39,50 @@ async function getInventoryById(inv_id) {
     const data = await pool.query(
       "SELECT * FROM public.inventory WHERE inv_id = $1",
       [inv_id]
-    )
-    return data.rows[0] // Return a single vehicle object
+    );
+    return data.rows[0]; // Return a single vehicle object
   } catch (error) {
-    console.error("getInventoryById error" + error)
-    throw error
+    console.error("getInventoryById error" + error);
+    throw error;
+  }
+}
+
+// Add new classification to table
+async function addClassification(classification_name) {
+  try {
+    const sql = "INSERT INTO classification (classification_name) VALUES ($1)";
+    const data = await pool.query(sql, [classification_name]);
+    return data.rowCount > 0;
+  } catch (error) {
+    return false;
+  }
+}
+
+// Model function for addInventory to table
+async function addInventory(item) {
+  try {
+    const sql = `
+      INSERT INTO inventory
+      (inv_make, inv_model, inv_year, inv_description, inv_image, inv_thumbnail, inv_price, inv_miles, inv_color, classification_id)
+      VALUES ($1,$2,$3,$4,$5,$6,$7,$8,$9,$10)
+    `;
+    const data = await pool.query(sql, [
+      item.inv_make, item.inv_model, item.inv_year, item.inv_description,
+      item.inv_image, item.inv_thumbnail, item.inv_price, item.inv_miles,
+      item.inv_color, item.classification_id
+    ]);
+    return data.rowCount > 0;
+  } catch (error) {
+    console.error("DB Error:", error);
+    return false;
   }
 }
 
 // Exports function for use elsewhere.
-module.exports = { getClassifications, getInventoryByClassificationId, getInventoryById };
+module.exports = {
+  getClassifications,
+  getInventoryByClassificationId,
+  getInventoryById,
+  addClassification,
+  addInventory,
+};
