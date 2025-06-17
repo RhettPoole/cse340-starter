@@ -229,15 +229,21 @@ footer a:hover {
 }
 
 .styled-form button {
-  background-color: #777;
+  background-color: #153c69; /* deep blue */
   color: #fff;
   border: none;
   cursor: pointer;
   margin-top: 0.5rem;
+  border-radius: 4px;
+  padding: 0.5rem 1.5rem;
+  font-size: 1rem;
+  font-weight: bold;
+  transition: background 0.2s;
 }
 
 .styled-form button:hover {
-  background-color: #1a1a2e;
+  background-color: #004080; /* lighter blue, still high contrast */
+  color: #fff;
 }
 
 .management-list {

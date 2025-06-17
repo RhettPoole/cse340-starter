@@ -2,7 +2,6 @@
 <title><%= title%></title>
 <% } %>
 
-<main>
   <h1>Add New Classification</h1>
   <p>Classification names must not contain spaces or special characters.</p>
   <% if (flashMessage) { %>
@@ -29,7 +28,7 @@
       pattern="^[A-Za-z0-9]+$"
       required
       title="No spaces or special characters allowed"
-    />
+    >
     <button type="submit">Add Classification</button>
   </form>
   <script>
@@ -62,4 +61,3 @@
       }
     });
   </script>
-</main>

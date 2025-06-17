@@ -2,7 +2,6 @@
 <title><%= title %></title>
 <% } %>
 
-<main>
   <h1>Add New Inventory</h1>
   <% if (flashMessage) { %>
   <div class="flash-message"><%= flashMessage %></div>
@@ -27,7 +26,7 @@
       name="inv_make"
       required
       value="<%= typeof inv_make !== 'undefined' ? inv_make : '' %>"
-    />
+    >
 
     <label for="inv_model">Model:</label>
     <input
@@ -36,7 +35,7 @@
       name="inv_model"
       required
       value="<%= typeof inv_model !== 'undefined' ? inv_model : '' %>"
-    />
+    >
 
     <label for="inv_year">Year:</label>
     <input
@@ -47,7 +46,7 @@
       min="1900"
       max="2099"
       value="<%= typeof inv_year !== 'undefined' ? inv_year : '' %>"
-    />
+    >
 
     <label for="inv_description">Description:</label>
     <textarea id="inv_description" name="inv_description" required>
@@ -61,7 +60,7 @@
       name="inv_image"
       required
       value="<%= typeof inv_image !== 'undefined' ? inv_image : '/images/vehicles/no-image.png' %>"
-    />
+    >
 
     <label for="inv_thumbnail">Thumbnail Path:</label>
     <input
@@ -70,7 +69,7 @@
       name="inv_thumbnail"
       required
       value="<%= typeof inv_thumbnail !== 'undefined' ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>"
-    />
+    >
 
     <label for="inv_price">Price:</label>
     <input
@@ -81,7 +80,7 @@
       min="0"
       step="0.01"
       value="<%= typeof inv_price !== 'undefined' ? inv_price : '' %>"
-    />
+    >
 
     <label for="inv_miles">Miles:</label>
     <input
@@ -91,7 +90,7 @@
       required
       min="0"
       value="<%= typeof inv_miles !== 'undefined' ? inv_miles : '' %>"
-    />
+    >
 
     <label for="inv_color">Color:</label>
     <input
@@ -100,7 +99,7 @@
       name="inv_color"
       required
       value="<%= typeof inv_color !== 'undefined' ? inv_color : '' %>"
-    />
+    >
 
     <label for="classificationList">Classification:</label>
     <%- classificationList %>
@@ -130,4 +129,3 @@
       });
     });
   </script>
-</main>
