@@ -1,0 +1,18 @@
+<main>
+  <% if (messages && messages.error && messages.error.length > 0) { %>
+    <% messages.error.forEach(function(msg){ %>
+      <div class="flash flash-error"><%= msg %></div>
+    <% }) %>
+  <% } %>
+  <% if (messages && messages.success && messages.success.length > 0) { %>
+    <% messages.success.forEach(function(msg){ %>
+      <div class="flash flash-success"><%= msg %></div>
+    <% }) %>
+  <% } %>
+  <% if (title) { %>
+    <h1><%= title %></h1>
+  <% } %>
+  <div class="account-info">
+    <p>You're logged in</p>
+  </div>
+</main>

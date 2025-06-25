@@ -2,6 +2,8 @@ const utilities = require("../utilities");
 const accountModel = require("../models/account-model");
 const bcrypt = require("bcryptjs");
 console.log("accountModel loaded:", accountModel);
+const jwt = require("jsonwebtoken")
+require("dotenv").config()
 
 /* ****************************************
  *  Deliver login view
@@ -11,7 +13,7 @@ async function buildLogin(req, res, next) {
   res.render("account/login", {
     title: "Login",
     nav,
-    erros: null,
+    errors: null,
   });
 }
 
@@ -93,4 +95,53 @@ async function registerAccount(req, res) {
   }
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount };
+/* ****************************************
+ *  Process login request
+ * ************************************ */
+async function accountLogin(req, res) {
+  let nav = await utilities.getNav()
+  const { account_email, account_password } = req.body
+  const accountData = await accountModel.getAccountByEmail(account_email)
+  if (!accountData) {
+    req.flash("notice", "Please check your credentials and try again.")
+    res.status(400).render("account/login", {
+      title: "Login",
+      nav,
+      errors: null,
+      account_email,
+    })
+    return
+  }
+  try { // bcript.compare() takes the incoming plain text password and the hashed password from the db and compares them to see if they match. Returns TRUE or False, which is then evaluated by the "if" statement.
+    if (await bcrypt.compare(account_password, accountData.account_password)) {
+      delete accountData.account_password
+      const accessToken = jwt.sign(accountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 })
+      // Checks for "dev" as our environment so we can test this using localhost and not just in the browser after pushing our changes.
+      if(process.env.NODE_ENV === 'development') {
+        res.cookie("jwt", accessToken, {httpOnly: true, maxAge: 3600 * 1000 })
+      } else {
+        res.cookie("jwt", accessToken, {httpOnly: true, secure: true, maxAge: 3600 * 1000 })
+      }
+      return res.redirect("/account/")
+    }
+    else {
+      req.flash("notice", "Please check your credentials and try again.")
+      res.status(400).render("account/login", {
+        title: "Login",
+        nav,
+        errors: null,
+        account_email,
+      })
+    }
+  } catch (error) {
+    console.error("Login error:", error);
+    throw new Error('Access Forbidden')
+  }
+}
+
+async function buildAccountManagement(req, res) {
+  let nav = await utilities.getNav();
+  res.render("account/accountManagement", { title: "Account Management", nav })
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement };
