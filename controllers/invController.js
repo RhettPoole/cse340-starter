@@ -59,12 +59,15 @@ invCont.buildByInventoryId = async function (req, res, next) {
 // Build inventory management view
 invCont.buildManagement = async function (req, res, next) {
   let nav = await utilities.getNav();
+  // Create a select list to be displayed in the inv management view
+  const classificationSelect = await utilities.buildClassificationList()
   // Get flash message if any
   let flashMessage = req.flash("notice");
   res.render("inventory/management", {
     title: "Inventory Management",
     nav,
     flashMessage: flashMessage.length ? flashMessage[0] : null,
+    classificationList: classificationSelect
   });
 };
 
@@ -169,6 +172,20 @@ invCont.addInventory = async function (req, res) {
     });
   }
 };
+
+/* ***************************
+ *  Return Inventory by Classification As JSON
+ * ************************** */
+invCont.getInventoryJSON = async (req, res, next) => {
+  const classification_id = parseInt(req.params.classification_id) // Collects and stores the classification_id that has been passed as a parameter through the URL. Uses the JS parseInt() function to cast it as an integer, which is also a security step.
+  const invData = await invModel.getInventoryByClassificationId(classification_id) // Calls the model-based function to get the data based on the classification_id
+  if (invData[0].inv_id) { // Checks to make sure there is a alue in the first element of the array being returned.
+    return res.json(invData)
+  } else { // Throw an error if no data is found.
+    next(new Error("No data returned"))
+  }
+}
+
 
 // Intentional error controller
 invCont.causeError = async function (req, res, next) {

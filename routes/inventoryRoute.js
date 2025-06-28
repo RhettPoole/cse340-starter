@@ -38,5 +38,8 @@ router.post("/add-classification", invValidate.classificationRules(), invValidat
 router.post("/add-inventory", invValidate.inventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory)
 );
 
+// Route for modifying classifications
+router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+
 // Exports the router so we can use it elsewhere.
 module.exports = router;
