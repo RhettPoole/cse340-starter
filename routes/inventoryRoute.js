@@ -44,5 +44,8 @@ router.get("/getInventory/:classification_id", utilities.handleErrors(invControl
 // Route for Inv management, edit by ID
 router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
 
+// Route for handling incoming update inv request
+router.post("/update/", invValidate.inventoryRules(), invValidate.checkUpdateData, invController.updateInventory)
+
 // Exports the router so we can use it elsewhere.
 module.exports = router;

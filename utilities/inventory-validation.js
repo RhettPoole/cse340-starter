@@ -38,6 +38,7 @@ const inventoryRules = () => [
   body("classification_id").isInt().withMessage("Classification is required.")
 ];
 
+// Errors will be directed back to the add inventory view
 const checkInventoryData = async (req, res, next) => {
   const errors = validationResult(req);
   let nav = await utilities.getNav();
@@ -55,4 +56,23 @@ const checkInventoryData = async (req, res, next) => {
   next();
 };
 
-module.exports = { classificationRules, checkClassificationData, inventoryRules, checkInventoryData };
+// Errors will be redirected back to the edit view
+const checkUpdateData = async (req, res, next) => {
+  const errors = validationResult(req);
+  let nav = await utilities.getNav();
+  let classificationList = await utilities.buildClassificationList(req.body.classification_id);
+  if (!errors.isEmpty()) {
+    return res.render("inv/edit", {
+      title: "Edit Inventory",
+      nav,
+      classificationList,
+      flashMessage: null,
+      errors: errors.array(),
+      inv_id: req.body.inv_id, // Add the "inv_id" to the list of variables to hold data from the request body
+      ...req.body
+    });
+  }
+  next();
+};
+
+module.exports = { classificationRules, checkClassificationData, inventoryRules, checkInventoryData, checkUpdateData };
