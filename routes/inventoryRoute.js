@@ -47,5 +47,11 @@ router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryVi
 // Route for handling incoming update inv request
 router.post("/update/", invValidate.inventoryRules(), invValidate.checkUpdateData, invController.updateInventory)
 
+// Route for building the delete confirmation of an inv item by ID
+router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInventoryView))
+
+// Route for handling the incoming delete inv item request.
+router.post("/delete-confirm/:inv_id", utilities.handleErrors(invController.deleteInventoryItem));
+
 // Exports the router so we can use it elsewhere.
 module.exports = router;

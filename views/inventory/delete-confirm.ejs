@@ -1,0 +1,84 @@
+<% if (title) { %>
+<title><%= title %></title>
+<% } %>
+
+<h1>Delete <%= inv_make + " " + inv_model %></h1>
+<% if (flashMessage) { %>
+<div class="flash-message"><%= flashMessage %></div>
+<% } %> <% if (errors && errors.length > 0) { %>
+<ul class="error-list">
+  <% errors.forEach(function(error) { %>
+  <li><%= error.msg %></li>
+  <% }); %>
+</ul>
+<% } %>
+<p>Confirm Deletion - The delete is permanent.</p>
+<form
+  id="editInventoryForm"
+  class="styled-form"
+  action="/inv/delete-confirm/:inv_id"
+  method="post"
+  novalidate
+>
+  <label for="inv_make">Make:</label>
+  <input
+    type="text"
+    id="inv_make"
+    name="inv_make"
+    required
+    value="<%= typeof inv_make !== 'undefined' ? inv_make : '' %>"
+    readonly
+  />
+
+  <label for="inv_model">Model:</label>
+  <input
+    type="text"
+    id="inv_model"
+    name="inv_model"
+    required
+    value="<%= typeof inv_model !== 'undefined' ? inv_model : '' %>"
+    readonly
+  />
+
+  <label for="inv_year">Year:</label>
+  <input
+    type="number"
+    id="inv_year"
+    name="inv_year"
+    required
+    min="1900"
+    max="2099"
+    value="<%= typeof inv_year !== 'undefined' ? inv_year : '' %>"
+    readonly
+  />
+
+  <label for="classificationList">Classification:</label>
+  <%- classificationList %>
+
+  <button type="submit">Delete Vehicle</button>
+  <input type="hidden" name="inv_id" <% if(locals.inv_id) { %> value="<%=
+  locals.inv_id %>" <% } %>>
+</form>
+<script>
+  // Add client-side validation as needed for each field
+  document
+    .getElementById("editInventoryForm")
+    .addEventListener("submit", function (e) {
+      // Front end checklist
+    });
+  // Get all inputs, textareas, and selects in the form
+  const validationForm = document.getElementById("editInventoryForm");
+  const fields = validationForm.querySelectorAll("input, textarea, select");
+
+  fields.forEach((field) => {
+    field.addEventListener("input", function () {
+      if (field.checkValidity()) {
+        field.classList.remove("input-error");
+        field.classList.add("input-success");
+      } else {
+        field.classList.remove("input-success");
+        field.classList.add("input-error");
+      }
+    });
+  });
+</script>

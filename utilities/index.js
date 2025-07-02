@@ -11,7 +11,7 @@ require("dotenv").config()
 /* ******
 * Constructs the nav HTML unordered list
 ********* */
-// Creates an async function which accepts req, res, and next methods as parameters. Then stored in the getNave variable of the Util object.
+// Creates an async function which accepts req, res, and next methods as parameters. Then stored in the getNav variable of the Util object.
 Util.getNav = async function (req, res, next) {
     // Calls the getClassifications() function from the inventory-model file and stores the returned resultset into the data variable.
     let data = await invModel.getClassifications()
