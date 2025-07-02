@@ -1,0 +1,131 @@
+<% if (title) { %>
+<title><%= title %></title>
+<% } %>
+
+  <h1>Edit <%= inv_make + " " + inv_model %> </h1> 
+  <% if (flashMessage) { %>
+  <div class="flash-message"><%= flashMessage %></div>
+  <% } %> <% if (errors && errors.length > 0) { %>
+  <ul class="error-list">
+    <% errors.forEach(function(error) { %>
+    <li><%= error.msg %></li>
+    <% }); %>
+  </ul>
+  <% } %>
+  <form
+    id="editInventoryForm"
+    class="styled-form"
+    action="/inv/update"
+    method="post"
+    novalidate
+  >
+    <label for="inv_make">Make:</label>
+    <input
+      type="text"
+      id="inv_make"
+      name="inv_make"
+      required
+      value="<%= typeof inv_make !== 'undefined' ? inv_make : '' %>"
+    >
+
+    <label for="inv_model">Model:</label>
+    <input
+      type="text"
+      id="inv_model"
+      name="inv_model"
+      required
+      value="<%= typeof inv_model !== 'undefined' ? inv_model : '' %>"
+    >
+
+    <label for="inv_year">Year:</label>
+    <input
+      type="number"
+      id="inv_year"
+      name="inv_year"
+      required
+      min="1900"
+      max="2099"
+      value="<%= typeof inv_year !== 'undefined' ? inv_year : '' %>"
+    >
+
+    <label for="inv_description">Description:</label>
+    <textarea id="inv_description" name="inv_description" required>
+<%= typeof inv_description !== 'undefined' ? inv_description : '' %></textarea
+    >
+
+    <label for="inv_image">Image Path:</label>
+    <input
+      type="text"
+      id="inv_image"
+      name="inv_image"
+      required
+      value="<%= typeof inv_image !== 'undefined' ? inv_image : '/images/vehicles/no-image.png' %>"
+    >
+
+    <label for="inv_thumbnail">Thumbnail Path:</label>
+    <input
+      type="text"
+      id="inv_thumbnail"
+      name="inv_thumbnail"
+      required
+      value="<%= typeof inv_thumbnail !== 'undefined' ? inv_thumbnail : '/images/vehicles/no-image-tn.png' %>"
+    >
+
+    <label for="inv_price">Price:</label>
+    <input
+      type="number"
+      id="inv_price"
+      name="inv_price"
+      required
+      min="0"
+      step="0.01"
+      value="<%= typeof inv_price !== 'undefined' ? inv_price : '' %>"
+    >
+
+    <label for="inv_miles">Miles:</label>
+    <input
+      type="number"
+      id="inv_miles"
+      name="inv_miles"
+      required
+      min="0"
+      value="<%= typeof inv_miles !== 'undefined' ? inv_miles : '' %>"
+    >
+
+    <label for="inv_color">Color:</label>
+    <input
+      type="text"
+      id="inv_color"
+      name="inv_color"
+      required
+      value="<%= typeof inv_color !== 'undefined' ? inv_color : '' %>"
+    >
+
+    <label for="classificationList">Classification:</label>
+    <%- classificationList %>
+
+    <button type="submit">Update Vehicle</button>
+  </form>
+  <script>
+    // Add client-side validation as needed for each field
+    document
+      .getElementById("editInventoryForm")
+      .addEventListener("submit", function (e) {
+        // Front end checklist
+      });
+    // Get all inputs, textareas, and selects in the form
+    const form = document.getElementById("editInventoryForm");
+    const fields = form.querySelectorAll("input, textarea, select");
+
+    fields.forEach((field) => {
+      field.addEventListener("input", function () {
+        if (field.checkValidity()) {
+          field.classList.remove("input-error");
+          field.classList.edit("input-success");
+        } else {
+          field.classList.remove("input-success");
+          field.classList.edit("input-error");
+        }
+      });
+    });
+  </script>

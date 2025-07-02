@@ -41,5 +41,8 @@ router.post("/add-inventory", invValidate.inventoryRules(), invValidate.checkInv
 // Route for modifying classifications
 router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
 
+// Route for Inv management, edit by ID
+router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+
 // Exports the router so we can use it elsewhere.
 module.exports = router;
