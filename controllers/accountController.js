@@ -144,4 +144,129 @@ async function buildAccountManagement(req, res) {
   res.render("account/accountManagement", { title: "Account Management", nav })
 }
 
-module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement };
+/* ****************************************
+ *  Build update account view
+ * *************************************** */
+async function buildUpdateAccount(req, res) {
+  let nav = await utilities.getNav();
+  const account_id = parseInt(req.params.account_id);
+
+  // Security check - users should only update their own account
+  // This comparison ensures the logged in user can only update their own info
+  if(account_id !== res.locals.accountData.account_id) {
+    req.flash("notice", "Access denied.");
+    return res.redirect("/account/");
+  }
+  const accountData = await accountModel.getAccountById(account_id);
+
+  if (!accountData) {
+    req.flash("notice", "Account not found.");
+    return res.redirect("/account/");
+  }
+
+  res.render("account/update", {
+    title: "Update Account",
+    nav,
+    errors: null,
+    account_firstname: accountData.account_firstname,
+    account_lastname: accountData.account_lastname,
+    account_email: accountData.account_email,
+    account_id: accountData.account_id
+  });
+}
+
+/* ****************************************
+ *  Process account update
+ * *************************************** */
+async function updateAccount(req, res) {
+  let nav = await utilities.getNav();
+  const { account_firstname, account_lastname, account_email, account_id } = req.body;
+
+  // Security check - only allow users to update their own account
+  if (parseInt(account_id) !== res.locals.accountData.account_id) {
+    req.flash("notice", "Access denied.");
+    return res.redirect("/account/");
+  }
+
+  // Update the account
+  const updateResult = await accountModel.updateAccount(
+    account_firstname,
+    account_lastname,
+    account_email,
+    account_id
+  );
+
+  if (updateResult) {
+    // Get hte updated account data
+    const updatedAccountData = await accountModel.getAccountById(account_id);
+
+    // Update the session data with new information
+    // Create a new JWT with the updated data
+    const accessToken = jwt.sign(updatedAccountData, process.env.ACCESS_TOKEN_SECRET, { expiresIn: 3600 * 1000 });
+
+    // Set the new JWT as a cookie
+    if (process.env.NODE_ENV === 'development') {
+      res.cookie("jwt", accessToken, { httpOnly: true, maxAge: 3600 * 1000});
+    } else {
+      res.cookie("jwt", accessToken, { httpOnly: true, secure: true, maxAge: 3600 * 1000});
+    }
+
+    req.flash("success", "Account information updated successfully.");
+  } else {
+    req.flash("notice", "Account update failed.");
+  }
+
+  // Redirect to the account management view
+  return res.redirect("/account/");
+}
+
+/* ****************************************
+ *  Process password change
+ * *************************************** */
+async function updatePassword(req, res) {
+  let nav = await utilities.getNav();
+  const { account_password, account_id } = req.body;
+
+  // Security check - onl;y allow users to update their own account
+  if (parseInt(account_id) !== res.locals.accountData.account_id) {
+    req.flash("notice", "Access denied.");
+    return res.redirect("/account/");
+  }
+
+  // Hash the password
+  let hashedPassword;
+  try {
+    hashedPassword = await bcrypt.hashSync(account_password, 10);
+  } catch (error) {
+    req.flash("notice", "There was an error processing your request.");
+    return res.redirect(`/account/update/${account_id}`);
+  }
+
+  // Update the password
+  const updateResult = await accountModel.updatePassword(hashedPassword, account_id);
+
+  if (updateResult) {
+    req.flash("success", "Password updated successfully");
+  } else {
+    req.flash("notice", "Password update failed.");
+  }
+
+  // Redirect to the account management view
+  return res.redirect("/account/");
+}
+
+/* ****************************************
+ *  Process logout request
+ * *************************************** */
+async function accountLogout(req, res) {
+  // Clear the JWT cookie
+  res.clearCookie("jwt");
+  
+  // Set a logout message
+  req.flash("notice", "You have been logged out successfully.");
+  
+  // Redirect to the home page
+  return res.redirect("/");
+}
+
+module.exports = { buildLogin, buildRegister, registerAccount, accountLogin, buildAccountManagement, buildUpdateAccount, updateAccount, updatePassword, accountLogout };

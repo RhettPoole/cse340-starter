@@ -76,3 +76,158 @@ h1 {
 .styled-form button:hover {
     background-color: #1a1a2e;
 }
+
+/* Account Management Page Styles */
+.account-info {
+    background-color: rgb(21, 60, 105);
+    color: white;
+    padding: 2rem;
+    margin: 1rem;
+    border-radius: 8px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+.account-info h2 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+    color: white;
+}
+
+.account-info h3 {
+    margin-top: 1.5rem;
+    margin-bottom: 0.5rem;
+    font-size: 1.4rem;
+    color: white;
+    border-bottom: 2px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.account-info p {
+    margin: 0.75rem 0;
+    font-size: 1.1rem;
+}
+
+.account-info a {
+    color: #4dd0e1;
+    text-decoration: underline;
+    font-weight: bold;
+}
+
+.account-info a:hover {
+    color: white;
+    background-color: rgba(77, 208, 225, 0.2);
+    padding: 0.25rem 0.5rem;
+    border-radius: 4px;
+}
+
+/* Flash Messages for Account Management */
+.flash {
+    padding: 0.75rem 1rem;
+    margin: 1rem;
+    border-radius: 4px;
+    font-weight: bold;
+}
+
+.flash-error {
+    background-color: #ffebee;
+    color: #c62828;
+    border-left: 4px solid #c62828;
+}
+
+.flash-success {
+    background-color: #e8f5e8;
+    color: #2e7d32;
+    border-left: 4px solid #2e7d32;
+}
+
+/* Update Forms - Enhanced styling to match the site */
+.styled-form h4 {
+    margin-top: 0;
+    margin-bottom: 1rem;
+    font-size: 1.3rem;
+    color: white;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.3);
+    padding-bottom: 0.5rem;
+}
+
+.styled-form input[type="hidden"] {
+    display: none;
+}
+
+.styled-form input[type="text"],
+.styled-form input[type="email"],
+.styled-form input[type="password"] {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    font-size: 1rem;
+    margin-bottom: 1rem;
+    background-color: white;
+    color: #333;
+}
+
+.styled-form input[type="text"]:focus,
+.styled-form input[type="email"]:focus,
+.styled-form input[type="password"]:focus {
+    outline: none;
+    border-color: #4dd0e1;
+    box-shadow: 0 0 0 2px rgba(77, 208, 225, 0.2);
+}
+
+.styled-form label {
+    display: block;
+    margin-bottom: 0.5rem;
+    font-weight: bold;
+    color: white;
+}
+
+.styled-form button {
+    background-color: #4dd0e1;
+    color: #222;
+    border: none;
+    padding: 0.75rem 1.5rem;
+    border-radius: 4px;
+    font-size: 1rem;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 0.5rem;
+    transition: background-color 0.3s ease;
+}
+
+.styled-form button:hover {
+    background-color: #26c6da;
+}
+
+/* Password requirements text */
+.password-requirements {
+    font-size: 0.9rem;
+    color: rgba(255, 255, 255, 0.8);
+    margin-bottom: 1rem;
+    padding: 0.5rem;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 4px;
+    border-left: 3px solid #4dd0e1;
+}
+
+/* Responsive adjustments for account management */
+@media screen and (max-width: 768px) {
+    .account-info {
+        margin: 0.5rem;
+        padding: 1.5rem;
+    }
+    
+    .account-info h2 {
+        font-size: 1.5rem;
+    }
+    
+    .account-info h3 {
+        font-size: 1.2rem;
+    }
+    
+    .styled-form {
+        margin: 0.5rem;
+        padding: 1.5rem;
+    }
+}

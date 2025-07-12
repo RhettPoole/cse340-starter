@@ -23,35 +23,35 @@ router.get('/detail/:inv_id', utilities.handleErrors(invController.buildByInvent
 router.get("/cause-error", utilities.handleErrors(invController.causeError));
 
 // Route to build inventory management view
-router.get("/", utilities.handleErrors(invController.buildManagement));
+router.get("/", utilities.checkAccountType, utilities.handleErrors(invController.buildManagement));
 
 // Route for management add-classification view
-router.get("/add-classification", utilities.handleErrors(invController.buildAddClassification));
+router.get("/add-classification", utilities.checkAccountType, utilities.handleErrors(invController.buildAddClassification));
 
 // Route for management add-inventory view
-router.get("/add-inventory", utilities.handleErrors(invController.buildAddInventory));
+router.get("/add-inventory", utilities.checkAccountType, utilities.handleErrors(invController.buildAddInventory));
 
 // Post route for adding classification
-router.post("/add-classification", invValidate.classificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification));
+router.post("/add-classification", utilities.checkAccountType, invValidate.classificationRules(), invValidate.checkClassificationData, utilities.handleErrors(invController.addClassification));
 
 // Post route for adding to inventory
-router.post("/add-inventory", invValidate.inventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory)
+router.post("/add-inventory", utilities.checkAccountType, invValidate.inventoryRules(), invValidate.checkInventoryData, utilities.handleErrors(invController.addInventory)
 );
 
 // Route for modifying classifications
-router.get("/getInventory/:classification_id", utilities.handleErrors(invController.getInventoryJSON));
+router.get("/getInventory/:classification_id", utilities.checkAccountType, utilities.handleErrors(invController.getInventoryJSON));
 
 // Route for Inv management, edit by ID
-router.get("/edit/:inv_id", utilities.handleErrors(invController.editInventoryView))
+router.get("/edit/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.editInventoryView))
 
 // Route for handling incoming update inv request
-router.post("/update/", invValidate.inventoryRules(), invValidate.checkUpdateData, invController.updateInventory)
+router.post("/update/", utilities.checkAccountType, invValidate.inventoryRules(), invValidate.checkUpdateData, invController.updateInventory)
 
 // Route for building the delete confirmation of an inv item by ID
-router.get("/delete/:inv_id", utilities.handleErrors(invController.buildDeleteInventoryView))
+router.get("/delete/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.buildDeleteInventoryView))
 
 // Route for handling the incoming delete inv item request.
-router.post("/delete-confirm/:inv_id", utilities.handleErrors(invController.deleteInventoryItem));
+router.post("/delete-confirm/:inv_id", utilities.checkAccountType, utilities.handleErrors(invController.deleteInventoryItem));
 
 // Exports the router so we can use it elsewhere.
 module.exports = router;

@@ -1,0 +1,59 @@
+<main>
+  <% if (messages && messages.error && messages.error.length > 0) { %> <%
+  messages.error.forEach(function(msg){ %>
+  <div class="flash flash-error"><%= msg %></div>
+  <% }) %> <% } %> <% if (messages && messages.success &&
+  messages.success.length > 0) { %> <% messages.success.forEach(function(msg){
+  %>
+  <div class="flash flash-success"><%= msg %></div>
+  <% }) %> <% } %> <% if (title) { %>
+  <h1><%= title %></h1>
+  <% } %>
+    <form id="updateAccountForm" class="styled-form" action="/account/update" method="post">
+        <h4>Account Update</h4>
+        <label for="account_firstname">First Name:</label><br />
+        <input 
+        type="text"
+        id="account_firstname"
+        name="account_firstname"
+        required value = "<%= locals.account_firstname %>"
+        /></br>
+        <label for="account_lastname">Last Name:</label><br />
+        <input 
+        type="text"
+        id="account_lastname"
+        name="account_lastname"
+        required value = "<%= locals.account_lastname %>"
+      /><br />
+
+      <label for="account_email">Email:</label><br />
+      <input
+        type="email"
+        id="account_email"
+        name="account_email"
+        required value = "<%= locals.account_email %>"
+      /><br />
+      <button id="update_account_button">Update Account</button><br />
+      <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
+  locals.account_id %>" <% } %>>
+    </form>
+    <form id="changePasswordForm" class="styled-form" action="/account/update-password" method="post">
+    <h4>Change Password</h4>
+    <div class="password-requirements">
+      Password must be at least 12 characters and contain at least 1 uppercase letter, 1 lowercase letter, 1 number, and 1 special character.
+    </div>
+    <label for="account_password">New Password:</label><br />
+      <input
+        type="password"
+        id="account_password"
+        name="account_password"
+        required
+        placeholder="Yourpassword"
+        required
+        pattern="^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{12,}$"
+      /><br />
+      <button id="update_password_button">Update Password</button><br />
+      <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
+  locals.account_id %>" <% } %>>
+    </form>
+</main>
