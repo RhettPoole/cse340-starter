@@ -30,12 +30,13 @@
 }
 
 .namePrice h2 a {
-  color: black;
+  color: #222;
+  background-color: transparent;
 }
 
 .namePrice h2 a:hover {
-  background-color: black;
-  color: white;
+  background-color: #222;
+  color: #fff;
 }
 
 .vehicle-detail-info p {

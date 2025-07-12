@@ -11,6 +11,7 @@ body {
   font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
   margin: 0;
   background: #fff;
+  background-color: #fff;
   color: #222;
 }
 
@@ -43,13 +44,14 @@ header h1 {
 header a {
   text-decoration: none;
   color: #222;
+  background-color: transparent;
   font-weight: bold;
   font-size: 0.95rem;
-  background-color: transparent;
 }
 
 header a:hover {
   text-decoration: underline;
+  color: #222;
   background-color: transparent;
 }
 
@@ -77,12 +79,13 @@ nav li {
   padding: 0.5rem 1rem;
 }
 nav li a {
-  color: white;
+  color: #fff;
+  background-color: transparent;
 }
 
 nav li a:hover {
-  background: white;
-  color: black;
+  background-color: #fff;
+  color: #222;
   border-radius: 5px;
 }
 
@@ -193,56 +196,12 @@ footer {
 }
 
 footer a {
-  color: black;
+  color: #222;
+  background-color: transparent;
 }
 
 footer a:hover {
-  background-color: black;
-  color: white;
-}
-
-.styled-form {
-  background-color: #153c69;
-  color: #fff;
-  padding: 1rem;
-  margin: 1rem auto;
-  max-width: 400px;
-  border-radius: 8px;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.08);
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-}
-
-.styled-form label {
-  font-weight: bold;
-  margin-bottom: 0.25rem;
-}
-
-.styled-form input,
-.styled-form button {
-  border-radius: 4px;
-  border: 1px solid #ccc;
-  padding: 0.5rem;
-  font-size: 1rem;
-  margin-bottom: 0.5rem;
-}
-
-.styled-form button {
-  background-color: #153c69; /* deep blue */
-  color: #fff;
-  border: none;
-  cursor: pointer;
-  margin-top: 0.5rem;
-  border-radius: 4px;
-  padding: 0.5rem 1.5rem;
-  font-size: 1rem;
-  font-weight: bold;
-  transition: background 0.2s;
-}
-
-.styled-form button:hover {
-  background-color: #004080; /* lighter blue, still high contrast */
+  background-color: #222;
   color: #fff;
 }
 

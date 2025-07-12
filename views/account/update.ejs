@@ -1,4 +1,3 @@
-<main>
   <% if (messages && messages.error && messages.error.length > 0) { %> <%
   messages.error.forEach(function(msg){ %>
   <div class="flash flash-error"><%= msg %></div>
@@ -56,4 +55,3 @@
       <input type="hidden" name="account_id" <% if(locals.account_id) { %> value="<%=
   locals.account_id %>" <% } %>>
     </form>
-</main>
